@@ -53,10 +53,8 @@ namespace ChartStats
 
 			try
 			{
-				using (var openStream = File.OpenRead(Fumen.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FileName)))
-				{
-					Instance = await JsonSerializer.DeserializeAsync<Config>(openStream, options);
-				}
+				await using var openStream = File.OpenRead(Fumen.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FileName));
+				Instance = await JsonSerializer.DeserializeAsync<Config>(openStream, options);
 			}
 			catch (Exception e)
 			{

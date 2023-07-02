@@ -23,12 +23,12 @@ namespace ChartStats
 		/// <summary>
 		/// StringBuilder for accumulating csv data for a song stats spreadsheet.
 		/// </summary>
-		private static readonly StringBuilder SBStats = new StringBuilder();
+		private static readonly StringBuilder SBStats = new ();
 
 		/// <summary>
 		/// StringBuilder for accumulating csv data about steps taken on each side of the pads.
 		/// </summary>
-		private static readonly StringBuilder SBStepsPerSide = new StringBuilder();
+		private static readonly StringBuilder SBStepsPerSide = new ();
 
 		public static async Task Main()
 		{
@@ -61,8 +61,8 @@ namespace ChartStats
 			await FindCharts();
 
 			// Write the files.
-			File.WriteAllText(config.OutputFileStats, SBStats.ToString());
-			File.WriteAllText(config.OutputFileStepsPerSide, SBStepsPerSide.ToString());
+			await File.WriteAllTextAsync(config.OutputFileStats, SBStats.ToString());
+			await File.WriteAllTextAsync(config.OutputFileStepsPerSide, SBStepsPerSide.ToString());
 
 			Logger.Info("Done.");
 			Logger.Shutdown();
